@@ -6,6 +6,7 @@ package aut.utcluj.isp.ex1;
 public class Shop {
     private String name;
     private String city;
+    private String owner;
 
     public Shop(String name, String city) {
         throw new UnsupportedOperationException("Not supported yet.");
