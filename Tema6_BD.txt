@@ -1,0 +1,77 @@
+7.2
+a)
+SELECT Oras, COUNT (CodB)
+FROM Beneficiar
+GROUP BY Oras
+
+b)
+SELECT Beneficiar.Oras, COUNT (Beneficiar.CodB)
+FROM Beneficiar, Tranzactii
+WHERE Beneficiar.CodB=Tranzactii.CodB
+GROUP BY Beneficiar.Oras
+
+c)
+SELECT P.Nume, COUNT (O.CodP)
+FROM Produs P, Oferte O
+WHERE P.CodP=O.CodP
+GROUP BY P.Nume
+
+d)
+SELECT P.Nume, AVG (O.Pret), SUM (O.Cantitate)
+FROM Produs P, Oferte O
+WHERE P.CodP=O.CodP
+GROUP BY P.Nume
+
+e)
+SELECT F.Nume, B.Nume
+FROM Furnizor F, Beneficiar B, Tranzactii T
+WHERE T.CodB=B.CodB AND T.CodF=F.CodF AND F.Oras=B.Oras
+GROUP BY F.Nume, B.Nume
+
+f)
+SELECT B.Oras, F.Nume, B.Nume
+FROM Furnizor F, Beneficiar B, Tranzactii T
+WHERE T.CodB=B.CodB AND T.CodF=F.CodF AND F.Oras=B.Oras
+GROUP BY B.Oras, F.Nume, B.Nume
+
+g)
+SELECT F.Oras, B.Oras, Count (*)
+FROM Furnizor F, Beneficiar B, Tranzactii T
+WHERE T.CodF=F.CodF AND T.CodB=B.CodB
+GROUP BY F.Oras, B.Oras
+HAVING Count(*)>0
+
+
+EX Suplimentare
+
+a)
+SELECT P.Nume, Count (C.CodP)
+FROM Produs P, Cerere C
+WHERE P.CodP=C.CodP
+GROUP BY P.Nume
+
+
+b)
+Select P.Nume, SUM(Cantitate*Pret) As Valoare_totala
+From Produse P JOIN Tranzactii T ON P.CodP=T.CodP
+Group By P.Nume
+
+c)
+SELECT P.Nume, MAX (T.Cantitate*T.Pret), F.Nume, B.Nume
+FROM Produs P, Tranzactii T, Furnizor F, Beneficiar B
+WHERE T.CodB=B.CodB AND T.CodF=F.CodF AND T.CodP=P.CodP
+GROUP BY P.Nume, F.Nume, B.Nume
+HAVING
+	MAX(T.Cantitate*T.Pret)>=ALL(SELECT MAX(Cantitate*Pret) FROM Tranzactii T, Produs Pr WHERE T.CodP=Pr.CodP AND P.Nume=Pr.Nume) 
+	
+
+d)
+Select SUM(Cantitate*Pret) As Valoare_totala_tranzactii
+From Tranzactii
+
+
+
+
+
+
+
